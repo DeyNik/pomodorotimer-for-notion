@@ -7,6 +7,8 @@ body {
   overflow-y: hidden;
 }
 
+/* ---------- CORE LAYOUT ---------- */
+
 #pomodoro-container {
   display: flex;
   flex-direction: column;
@@ -26,7 +28,11 @@ body {
 }
 
 #timer-container {
-  margin-top: 0.125rem;
+  margin-top: 1.5rem; /* improved spacing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 #start-stop-reset-container {
@@ -36,14 +42,42 @@ body {
   flex-wrap: wrap;
 }
 
+/* ---------- ENHANCED TIMER ---------- */
+
 #time-left {
   font-family: "Karla", sans-serif;
-  font-size: 10.375rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 1rem;
-  letter-spacing: -5px;
+
+  /* responsive & balanced sizing */
+  font-size: clamp(4rem, 14vw, 8rem);
+  line-height: 1;
+  letter-spacing: -3px;
+
+  margin-bottom: 1.2rem;
+  user-select: none;
+
+  transition: color 0.25s ease-in-out, opacity 0.25s ease-in-out;
 }
+
+/* dynamic UX states */
+body.running #time-left {
+  opacity: 0.95;
+}
+
+body.paused #time-left {
+  opacity: 0.6;
+}
+
+/* mobile refinement */
+@media (max-width: 420px) {
+  #time-left {
+    letter-spacing: -1px;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* ---------- BUTTONS ---------- */
 
 .interval-btn,
 #start-stop-btn,
@@ -57,7 +91,9 @@ body {
   margin: 0.313rem;
   padding: 0.313rem 0.5rem;
   text-align: center;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,
+              color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out;
 }
 
 .interval-btn:hover,
@@ -69,6 +105,8 @@ body {
   border-color: black;
   cursor: pointer;
 }
+
+/* ---------- SETTINGS MODAL ---------- */
 
 #settings-modal {
   font-family: Rubik;
@@ -85,51 +123,68 @@ body {
 }
 
 .modal-content {
-  width:300px;
-  font-family:Rubik;
-  color:black;
-  align-items: center;
-  justify-content: center;
+  width: 300px;
+  font-family: Rubik;
+  color: black;
   background-color: #f7f6f3;
   padding: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .close-btn {
   color: #000;
-  float: right;
+  align-self: flex-end;
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.setting-option {
- 
-  align-item:center;
-  font-family: Rubik;
-  margin-bottom: 10px;
-}
+/* ---------- SETTINGS OPTIONS ---------- */
 
 .setting-wrapper {
-  text-align:center;
-  flex-direction:column;
-  display:flex;
-  align-item:center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
+.setting-option {
+  font-family: Rubik;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 .setting-option label {
-  text-align:center;
-  align-item:center;
   font-family: Rubik;
-  margin-right: 10px;
+  margin-bottom: 5px;
 }
 
+select {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+/* ---------- SAVE BUTTON ---------- */
+
 #save-btn {
-  margin-top:10px;
-  width:60%;
-  font-family:Rubik;
+  margin-top: 15px;
+  width: 75%;
+  font-family: Rubik;
   background-color: black;
   color: #fff;
   border: none;
@@ -137,32 +192,9 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  
 }
-
 
 #save-btn:hover {
   background-color: grey;
-  color:white;
-  width:60
-}
-
-#option{
-  font-family:Rubik;
-  
-}
-
-select {
-  // A reset of styles, including removing the default dropdown arrow
-  appearance: none;
-  // Additional resets for further consistency
-  background-color: transparent;
-  border: none;
-  padding: 0 1em 0 0;
-  margin: 10px;
-  width: 60%;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
+  color: white;
 }
